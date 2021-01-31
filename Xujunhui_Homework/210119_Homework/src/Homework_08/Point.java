@@ -1,4 +1,4 @@
-package Homework_8;
+package Homework_08;
 import java.util.*;
 public class Point {
 	float X,Y,Z;

@@ -1,4 +1,4 @@
-package Homework_4;
+package Homework_04;
 import java.util.*;
 public class test {
 
@@ -22,8 +22,9 @@ public class test {
 		System.out.println("请输入：姓名，身份证号：");
 		Scanner sc=new Scanner(System.in);
 		str=sc.nextLine();
-		for(i=0;str.charAt(i)!=',';i++) 
+		for(i=0;str.charAt(i)!='，';i++) 
 			s.append(str.charAt(i));
+		s.append(',');
 		city.append(str.charAt(++i));
 		city.append(str.charAt(++i));
 		String c=city.toString();
@@ -32,11 +33,20 @@ public class test {
 				s.append(codeAndCity[j][1]);
 			}
 		}
+		s.append(',');
 		i+=5;
-		for(int j=0;j<8;i++,j++)
+		for(int j=0;j<8;i++,j++) {
+			if(j==4) {
+				s.append('年');
+			}else if(j==6) {
+				s.append('月');
+			}
 			s.append(str.charAt(i));
+		}
+		s.append('日');
 		i+=3;
 		int k=Integer.parseInt(String.valueOf(str.charAt(i)));
+		s.append(',');
 		if(k%2==0) {
 			s.append("男");
 		}else {

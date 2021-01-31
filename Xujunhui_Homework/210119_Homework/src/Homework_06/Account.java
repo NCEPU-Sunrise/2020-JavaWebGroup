@@ -1,4 +1,4 @@
-package Homework_6;
+package Homework_06;
 
 import java.util.*;
 

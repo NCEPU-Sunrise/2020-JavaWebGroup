@@ -1,4 +1,4 @@
-package Homework_5;
+package Homework_05;
 
 public class Address {
 	String country,province,city,street,postcode;

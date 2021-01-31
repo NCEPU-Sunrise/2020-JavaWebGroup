@@ -1,4 +1,4 @@
-package Homework_7;
+package Homework_07;
 
 public class Car {
 	String user,brand,color;
