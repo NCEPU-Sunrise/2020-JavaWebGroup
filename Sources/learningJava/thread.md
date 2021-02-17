@@ -315,6 +315,101 @@ class Timer{
     }
 }
 ```
+下面用一个简单的例子来熟悉synchronized的几种用法：
+```java
+public class T{
+	private int count =10;
+	private Object o=new Object();
+	public void m(){ //任何线程要执行下面的代码，必须要先拿到o的锁
+		synchronized(o){
+			count--;
+			System.out.println()
+		}
+	}
+}
+```
+运行过程：任何线程要执行下面的代码，必须要先拿到o的锁，其他的线程都不能往下运行，等这个线程释放锁之后，第二个线程申请绑定，才能运行。
+
+
+对于上面这个程序，我们每次都需要自己创建一个对象来当锁(synchronized)，比较麻烦，下面我们优化这个程序
+```java
+public class T{
+	private int count =10;
+	pulbic void m(){
+		synchronized (this){//任何线程要执行下面的代码，必须拿到this的锁
+			count--;
+			System.out.println(Thread.currentThread().getName()+"count="+count);
+		}
+	}
+ }
+注意：	this 直接锁定自身
+synchronized 锁定的是当前对象，不是代码.
+```
+
+```java
+pulbic class T{
+	private int count =10;
+	pulbic synchronized void m(){//等同于在方法的代码执行时要synchronized(this)
+		count--;
+		System.out.println(Thread.currentThread().getName()+"count="+count)
+	}
+}
+```
+上述两个程序运行效果相同。
+
+当synchronized 用在静态方法上，就相当于锁定的是当前对象的class。
+```java
+public class T{
+	private static int count=10;
+	pulbic synchronized static void m(){//这里等同于对象的classsynchronized(T.class)
+		count--;
+		System.out.println(Thread.currentThread().getNname()+"count="+count);
+	}
+	public  static void mm(){
+		synchronized (T.class) {  //这里是不能写Synchronized(this)
+		count--;
+	}
+	}
+}
+```
+
+我们来看下面的小程序
+```java
+public class T implement Runnable{
+	private int count =10;
+	public void run(){
+		count--;
+		System.out.prinln(Thread.currentThread().getName()+"count="+count);
+	}
+	public static void main(String []args){
+		T t=new T();
+		for(int i=0;i<5;i++){
+			new Thread((t,"Thread"+i).start();)
+		}
+	}
+}
+```
+
+```
+运行结果(不唯一)
+Thread1 count=7
+Thread4 count=5
+Thread3 count=6
+Thread0 count=7
+Thread0 count=7
+```
+
+运行之后，你会发现他的返回值不是98765这样的顺序，，原因是在你运行的时候，又会有其他线程进入，打断了之前运行的线程，所以输出来的值不是按照顺序的，这时我们就需要加上锁-->`public synchronized void run()`
+
+```
+运行结果
+Thread0 count=9
+Thread1 count=8
+Thread2 count=7
+Thread3 count=6
+Thread4 count=5
+```
+
 6.死锁
 
 死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。
@@ -414,14 +509,16 @@ public class TT implements Runnable{
     }
 }
 ```
-是否在一个线程去访问m1这个方法时，需要解锁后m2才会执行呢？如果b的值为100,则m2这个线程没有执行，也就是说m1执行后并没有解锁，所以m2方法输出的值为100；
+是否在一个线程去访问m1这个方法时，需要解锁后m2才会执行呢？如果b的值为100,也就是说m1执行后并没有解锁，所以m2方法输出的值为100；
+
+实际结果是，b的值为1000
 ```
 运行结果
 1000
 b=1000
 ```
 
-实际结果是，b的值为1000，也就是说另一个线程绝对不会执行m1方法体里的东西，而不能保证它执行其他的方法体。其他线程完全可以访问没有加synchronizd的方法体，所以值为1000
+也就是说另一个线程绝对不会执行m1方法体里的东西，但不能保证它执行其他的方法体。其他线程完全可以访问没有加synchronizd的方法体；其他线程也能够访问没有加同步的对象，所有b的值为1000
 
 修改代码：
 ```java
