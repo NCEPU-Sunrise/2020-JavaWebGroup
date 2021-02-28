@@ -20,7 +20,6 @@ public class Assignment1 {
         ArrayList<String> player3 = fight.licensing(3, pokers);
         ArrayList<String> basepoker = fight.licensing(4, pokers);
 
-        //输出本次斗地主三位玩家分到的牌，以及3张底牌
         System.out.println("player1：" + player1);
         System.out.println("player2：" + player2);
         System.out.println("player3：" + player3);

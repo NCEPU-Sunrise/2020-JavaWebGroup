@@ -14,7 +14,6 @@ public class Assignment4 {
         ts.triangle(a, b, c);
     }
 }
-
 class Test {
     void triangle(int a, int b, int c) {
         try {
