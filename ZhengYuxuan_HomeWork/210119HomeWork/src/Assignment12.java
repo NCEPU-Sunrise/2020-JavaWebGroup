@@ -1,7 +1,9 @@
 public class Assignment12 {
-    Manager a = new Manager(5);
-    Employee b = new Employee(6);
-    Employee c = new Employee(2);
+    public static void main(String[] args) {
+        Manager a = new Manager(5);
+        Employee b = new Employee(6);
+        Employee c = new Employee(2);
+    }
 }
 class Person{
     int year;
