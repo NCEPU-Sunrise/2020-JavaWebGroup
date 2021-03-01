@@ -1,13 +1,16 @@
 public class Assignment12 {
     public static void main(String[] args) {
-        Manager a = new Manager(5);
-        Employee b = new Employee(6);
-        Employee c = new Employee(2);
+        Manager a = new Manager();
+        Employee b = new Employee();
+        Employee c = new Employee();
+        a.add(5);
+        b.add(6);
+        c.add(2);
     }
 }
 class Person{
     int year;
-    double money;
+    double money = 5000.00;
 
 void add(int year){
     if(year<3)
@@ -20,12 +23,7 @@ void add(int year){
 class Employee extends Person {
     int year;
     double money = 5000.00;
-    Employee(){
 
-    }
-    Employee(int year){
-        this.year = year;
-    }
 
     @Override
     void add(int year) {
@@ -35,10 +33,6 @@ class Employee extends Person {
 class Manager extends Employee{
     int year;
     double money = 5000.00;
-    Manager(int year){
-        super();
-        this.year = year;
-    }
 
     @Override
     void add(int year) {
